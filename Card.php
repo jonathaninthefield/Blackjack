@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/plain');
+// header('Content-Type: text/plain');
 /*
 Suit, number, value
 */
@@ -9,8 +9,25 @@ class Card {
 	protected $value; // int
 	
 	public function __construct($suit, $number) {
+		$this->setNumber($number);
+		$this->setSuit($suit);
+	}
+	
+	protected function setSuit($suit) {
 		$this->suit = strtoupper($suit);
+		$validSuits = array('S', 'H', 'D', 'C');
+		if (!in_array($this->suit, $validSuits)) {
+			throw new Exception($this->suit . " is not a valid Card suit.");
+		}
+	}
+	
+	protected function setNumber($number) {
 		$this->number = strtoupper($number);
+		$validNumbers = array('A', 'J', 'Q', 'K', 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		if (!in_array($this->number, $validNumbers)) {
+			throw new Exception($this->number . " is not a valid Card number.");
+		}
+		
 		$this->setValue($this->number);
 	}
 	
